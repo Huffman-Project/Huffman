@@ -7,7 +7,7 @@ public class Frequence {
 	
 	String chaine;
 	//map comme un dictionnaire pour stocker une clé et une valeur
-	Map<Character,Float> map = new HashMap<Character,Float>();
+	Map<Character,Integer> map = new HashMap<Character,Integer>();
 	
 	//constructor 
 	Frequence(String chaine) {
@@ -15,9 +15,9 @@ public class Frequence {
 	}
 	
 	
-	public Map<Character,Float> lettre_occ() {
+	public Map<Character,Integer> lettre_occ() {
 		int i, j; 
-		float occur;
+		int occur;
 		char lettre1, lettre2;
 		int taille = chaine.length();
 		
@@ -40,10 +40,9 @@ public class Frequence {
 					if(lettre1 == lettre2)
 						occur++;
 				}
-			float freq = (occur/taille) * 100;
 			
 			//stocker
-			 map.put(lettre1 , freq);
+			 map.put(lettre1 , occur);
 			}	
 		}
 		return map;
