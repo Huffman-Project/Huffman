@@ -22,30 +22,53 @@ int main()
 	{'ô',0.04},{'â',0.03},{'î',0.03},{'û',0.02},
 	{'ù',0.02},{'ï',0.01},{'á',0.01},{'ü',0.01},
 	{'ë',0.01},{'ö',0.01},{'á',0.01},{'í',0.01}};
-
+	
+	
 	
 	typedef struct arbre {
-		lettre valeur;
-		//valeur de l'arbre est la lettre 
-		lettre poid;
-		//poid de l'arbre est la frequence
+		double valeur;
+		//valeur de l'arbre est la frequence 
+		char poid;
+		//poid de l'arbre est la lettre
 		struct arbre *gauche;
-		struct arbre *droite;
+		struct arbre *droit;
 	}arbre;
 	
-	arbre arbres[50];
+	struct arbre arbres[50];
 	int i;
 	
 	//on initialise tout les lettres qu'on a sous forme d'arbres qui n'ont pas de fils i.e des feuilles
 	//ensuite on les ajoute dans une liste arbres
 	for (i=0; i < 43; i++) {
 		arbre noeud;
-		noeud.valeur = frequence[i].c;
-		noeud.poid = frequence[i].f;
+		noeud.valeur = frequence[i].f;
+		noeud.poid = frequence[i].c;
 		noeud.gauche = NULL;
-		noeud.droite = NULL;
+		noeud.droit = NULL;
 		arbres[i] = noeud;
 	}
+	
+	//maintenant on va parcourir la liste arbres, on va prendre les 2 premièrs sous arbres, sommer leurs 
+	//poids, creer un nouveau arbre, son poid et la somme calculée, son arbre gauche et droit sont les 
+	// deux sous arbres.
+	
+	
+	arbre s_arbre[50];
+	arbre* huffman0(arbre arbres[50]) {
+		
+		double somme = arbres[0].valeur + arbres[1].valeur;
+		arbre sousArbre;
+		sousArbre.valeur = somme;
+		sousArbre.droit = &arbres[0];
+		sousArbre.gauche = &arbres[1];
+		s_arbre[0] = sousArbre;
+		return s_arbre;
+	}
+	
+	huffman0(arbres);
+	printf("%f",s_arbre[0].valeur);
+
+	
 	
 	return 0;
 } 
