@@ -72,7 +72,7 @@ int* codeDuNoeud(Node *node, int *n){
         noeudActuel = noeudActuel->parent;
         i++;
     }
-    reverseCode(code, i);
+    renverserCode(code, i);
     *n = i;
     return code;
 }
