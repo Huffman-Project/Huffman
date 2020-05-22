@@ -10,3 +10,8 @@ Etap1 : Détermination de l’alphabet et des fréquences.
 Etape2 : Trier les éléments par fréquence .
 
 Etape3 : Créer une feuille pour chaque caractère avec la fréquence associée.
+
+Etape4 : Construire l'arbre et retourne la racine.
+
+Etape5 : Parcourir l'arbre pour générer le code pour chaque lettre.
+
