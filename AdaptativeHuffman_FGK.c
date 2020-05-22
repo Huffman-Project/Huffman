@@ -42,17 +42,29 @@ Node* creerArbre(){
     arbre->ord = symbolesPossibles * 2 
     return arbre;
 }
-
-void renverserCode(int *code){
+/* Fonction qui renverse un tableau d'entiers
+   code: le tableau d'entiers (contiendera des o et 1s)
+   longueurDuCode: la longueur du tableau*/
+void renverserCode(int *code, int longueurDuCode){
     if(code == NULL){
         printf("le code est NULL");
         return;
     }
-    
+    int *start = code;
+    int *end = code+(longueurDuCode-1);
+    while(start < end){
+        int temp = *start;
+        *start = *end;
+        *end = temp;
+        start++;
+        end--;
+    }
+
 }
 /* Fonction qui retourne un tableau de 0 et 1s qui contient le code qui correspond à un noeud particulier */
-int codeDuNoeud(Node *node){
+int* codeDuNoeud(Node *node, int *n){
     Node *noeudActuel = node; 
+    int *code = malloc(sizeof(int) * symbolesPossibles * 2); /*le pire des cas*/
     int i = 0;
     while (!noeudActuel->sRacine) {
         Node *parent = noeudActuel->parent;
@@ -60,5 +72,7 @@ int codeDuNoeud(Node *node){
         noeudActuel = noeudActuel->parent;
         i++;
     }
-    return code
+    reverseCode(code, i);
+    *n = i;
+    return code;
 }
