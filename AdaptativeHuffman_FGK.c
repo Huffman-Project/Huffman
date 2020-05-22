@@ -50,3 +50,15 @@ void renverserCode(int *code){
     }
     
 }
+/* Fonction qui retourne un tableau de 0 et 1s qui contient le code qui correspond à un noeud particulier */
+int codeDuNoeud(Node *node){
+    Node *noeudActuel = node; 
+    int i = 0;
+    while (!noeudActuel->sRacine) {
+        Node *parent = noeudActuel->parent;
+        code[i] = (parent->filsGauche == noeudActuel) ? 0 : 1;
+        noeudActuel = noeudActuel->parent;
+        i++;
+    }
+    return code
+}
