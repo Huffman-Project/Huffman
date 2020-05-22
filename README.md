@@ -5,3 +5,6 @@ L’encodage de Huffman semi-adaptatif nécessite une connaissance à priori de 
 
 
 Etap1 : Détermination de l’alphabet et des fréquences
+Etape2 : Trier les éléments par fréquence 
+Etape3 : Créer une feuille pour chaque caractère avec la fréquence associée
+
