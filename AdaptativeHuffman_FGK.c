@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define a -1 
 #define symbolesPossibles 256 /* nombre des symboles possibles */
 
 enum { CODER, DECODER }; /* les options du programme */
@@ -11,7 +10,7 @@ enum { CODER, DECODER }; /* les options du programme */
 struct node {
     int sZero;
     int sRacine;
-    int sfeuille;
+    int sFeuille;
     
     struct node *parent;
     struct node *filsGauche;
@@ -28,3 +27,26 @@ struct symbole {
     char symbole;
     Node *arbre;
 };
+Node* creerArbre(){
+    Node* arbre = malloc(sizeof(Node))
+    arbre->sZero = 1;
+    arbre->sRacine = 1;
+    arbre->sFeuille = 1;
+
+    arbre->parent = NULL;
+    arbre->filsGauche = NULL;
+    arbre->filsDroit = NULL;
+
+    arbre->symbol = 1
+    arbre->val = 0
+    arbre->ord = symbolesPossibles * 2 
+    return arbre;
+}
+
+void renverserCode(int *code){
+    if(code == NULL){
+        printf("le code est NULL");
+        return;
+    }
+    
+}
