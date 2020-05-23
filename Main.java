@@ -3,16 +3,10 @@ import java.util.*;
 
 public class Main {
 	
-	
-	
 	public static void main(String[] args) {
 		
-		String texte = "est natus enim nihil est dolore omnis voluptatem numquam "
-				+ "et omnis occaecati quod ullam at voluptatem error expedita pariatur"
-				+ " nihil sint nostrum voluptatem reiciendis et est natus enim nihil est"
-				+ " dolore omnis voluptatem numquam et omnis occaecati quod ullam at voluptatem "
-				+ "error expedita pariatur nihil sint nostrum voluptatem reiciendis et est natus ";
 		
+		String texte = "Huffman est un algorithme de compression de données";
 		
 		
 		//obtenir les elements avec leurs frequences
@@ -38,7 +32,9 @@ public class Main {
 		//parcourir l'arbre pour generer les codes pour chaque lettre
 		arbre.parcArbre(racine, "");
 		
-		
+		//coder le texte et creer un fichier contenant le code
+		Codage codage = new Codage(noeuds,texte);
+		codage.texteEnBinaire();
 				
 	}
 
