@@ -15,3 +15,4 @@ Etape4 : Construire l'arbre et retourne la racine.
 
 Etape5 : Parcourir l'arbre pour générer le code pour chaque lettre.
 
+Etape6 : parcourir le texte pour créer code binaire.
