@@ -52,22 +52,97 @@ int main()
 	//poids, creer un nouveau arbre, son poid et la somme calculée, son arbre gauche et droit sont les 
 	// deux sous arbres.
 	
-	
-	arbre s_arbre[50];
-	arbre* huffman0(arbre arbres[50]) {
+		arbre findMin (arbre arbre0[100], arbre arbreAeffacer) {
+		bool a = memcmp(&arbre0[0], &arbreAeffacer, sizeof(arbre0[0]));
 		
-		double somme = arbres[0].valeur + arbres[1].valeur;
-		arbre sousArbre;
-		sousArbre.valeur = somme;
-		sousArbre.droit = &arbres[0];
-		sousArbre.gauche = &arbres[1];
-		s_arbre[0] = sousArbre;
-		return s_arbre;
+		//arbre min = arbre0[0] != arbreAeffacer ? arbre0[0] : arbre0[1];
+		arbre min = a ? arbre0[1] : arbre0[0];
+		int i;
+		for (i=0;i<100;i++) {
+			bool b = memcmp(&arbre0[i], &arbreAeffacer, sizeof(arbre0[0]));
+			if(b && arbre0[i].valeur != 0) {
+				min = arbre0[i].valeur > min.valeur ? min : arbre0[i];
+			}
+		}
+		return min;
 	}
 	
-	huffman0(arbres);
-	printf("%f",s_arbre[0].valeur);
-
+	//definir un arbre null
+	arbre arbre_null;
+	arbre_null.valeur = -1;
+	arbre_null.gauche = NULL;
+	arbre_null.droit = NULL;
+	
+	
+	arbre* supprimeNoeud (arbre arbre0[100],arbre noeudAsupp) {
+		int i;
+		for (i=0;i<100;i++) {
+			bool a = memcmp(&arbre0[i], &noeudAsupp, sizeof(arbre0[i]));
+			if(a) {
+				int j;
+				arbre0[100] = arbre_null;
+				for (j=i;j<100;j++) {
+					arbre0[j] = arbre0[j+1];
+				}
+			}
+		}
+		return arbre0;
+	}
+	
+	bool feuille(arbre arb) {
+		bool a = memcmp(&arb.droit,&arbre_null, sizeof(arb.droit));
+		bool b = memcmp(&arb.gauche,&arbre_null, sizeof(arb.gauche));
+		return (a && b);
+	}
+	
+	
+	//algo de huffman retourne l'arbre final
+	arbre huffman(arbre arbre0[100]) {
+		arbre arbre_final;
+		bool flag = true;
+		int i;
+		while (flag){
+			flag = false;
+			for(i=0;i<100;i++) {
+				if(arbre0[i].valeur != -1) {
+					flag = true;
+				}
+			}
+			arbre min1 = findMin(arbre0,arbre_null);
+			arbre min2 = findMin(arbre0,min1);
+			arbre_final.valeur = min1.valeur + min2.valeur;
+			arbre_final.gauche = &min1;
+			arbre_final.droit = &min2;
+			supprimeNoeud(arbre0,min1);
+			supprimeNoeud(arbre0,min2);	
+		}
+		return arbre_final;
+	}
+	
+	
+	
+	void parcourir_arb (arbre racine, char codeBin[8]) {
+		if (feuille(racine)) {
+			strcpy(racine.bin,codeBin) ;
+			printf("%c : %s",racine.poid, codeBin);
+		}
+		else {
+			char buff0[8];
+			char buff1[8];
+			strcpy(buff0,codeBin);
+			strcpy(buff1,codeBin);
+			parcourir_arb(*racine.gauche,strcat(buff0,"0"));
+			parcourir_arb(*racine.droit, strcat(buff1,"1"));
+		}
+	}
+	
+    
+	arbre racine = huffman(arbres);
+	printf("fuck u\n");
+	parcourir_arb(racine,"");
+	
+	
+	
 	
 	
 	return 0;
