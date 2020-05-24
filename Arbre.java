@@ -1,8 +1,11 @@
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class Arbre {
 	Map<Character,Integer> map ;
+	String lettresCodes = "" ;
 
 	public Arbre(Map<Character, Integer> map) {
 		super();
@@ -50,10 +53,27 @@ public class Arbre {
 		
 		if( (racine.fils_gauche == null) && (racine.fils_droite == null) ) {
 			racine.code_binaire = code_binaire;
+			lettresCodes += racine.lettre + " " + code_binaire + "\n";
 			System.out.println(racine.lettre + " " + code_binaire);
 		} else {
 			parcArbre(racine.fils_gauche, code_binaire + "0");
 			parcArbre(racine.fils_droite, code_binaire + "1");			
+		}
+		
+	}
+	
+	public void writeCodes() {
+		try {
+			File fichier = new File("C:\\Users\\Etudiant\\eclipse-workspace\\HuffmanSemiAdaptatif\\src\\lettres.txt");
+			PrintWriter writer = new PrintWriter(fichier);
+			writer.write(lettresCodes);
+			writer.close();
+
+			System.out.println("fichier lettres.txt est bien été creé");
+
+		} 
+		catch (Exception e) {
+			System.out.println(e);
 		}
 	}
 	

@@ -2,18 +2,18 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-public class Codage {
+public class CodeBin {
 	
 	ArrayList<Noeud> noeuds;
 	String texte;
 	
-	public Codage(ArrayList<Noeud> noeuds, String texte) {
+	public CodeBin(ArrayList<Noeud> noeuds, String texte) {
 		super();
 		this.noeuds = noeuds;
 		this.texte = texte;
 	}
 
-
+	
 
 	public void texteEnBinaire() {
 		String code_binaire = "";

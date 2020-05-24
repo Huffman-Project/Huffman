@@ -15,6 +15,8 @@ public class Frequence {
 	}
 	
 	
+	
+	
 	public Map<Character,Integer> lettre_occ() {
 		int i, j; 
 		int occur;
