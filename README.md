@@ -15,8 +15,7 @@ chaque fois qu'une lettre x est lue dans le texte source.
 — on imprime son mot de code,
 — on met à jour l'arbre,
 
-— sinon
-— on imprime le mot de code de la lettre vide suivi de x non
+— sinon, on imprime le mot de code de la lettre vide suivi de x non
 codé (son code ascii en base 2 par exemple),
 — on ajoute une feuille dans l'arbre,
 
