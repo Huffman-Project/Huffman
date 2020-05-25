@@ -1,7 +1,9 @@
-import java.util.ArrayList;
+package solution_naive;
+import java.util.*;
 
 public class ArbreN {
 	
+
 	int valeur;
 	//valeur == la lettre
 	String codeBin;
@@ -42,19 +44,61 @@ public class ArbreN {
 		return initArbre;		
 	}
 	
+	
+	
 	@SuppressWarnings("unchecked")
 	//construction de l'arbre de huffman
 	ArbreN arbre_huffman (ArrayList<ArbreN> init) {
 		ArrayList<ArbreN> arbre_final = (ArrayList<ArbreN>)init.clone();
-		int i=0;
 		while(arbre_final.size() > 1) {
-			ArbreN arb = new ArbreN(init.get(i).valeur + init.get(i+1).valeur,init.get(i),init.get(i+1));
-			arbre_final.add(0,arb);
-			arbre_final.remove(init.get(i));
-			arbre_final.remove(init.get(i+1));
-			i++;
+			ArbreN arb1 = arbre_final.get(0);
+			ArbreN arb2 = arbre_final.get(1);
+			ArbreN arb = new ArbreN(arb1.valeur + arb2.valeur,arb1,arb2);
+			arbre_final.add(arbre_final.size(),arb);
+			arbre_final.remove(arb1);
+			arbre_final.remove(arb2);
 		}
 		return arbre_final.get(0);
 	}
+	
+	//vérifier si l'arbre est une feuille
+		boolean est_feuille (ArbreN arb) {
+			if(arb.gauche == null && arb.droit == null) {
+				return true;
+			}
+			else return false;
+		}
+		
+		//parcourt l'arbre et attribue 0 pour le fils gauche et 1 pour le fils droit
+		void parcourArbre (ArbreN racine,String codeBin,int prof) {
+			if(est_feuille(racine)) {
+				racine.codeBin = codeBin;
+				String codBin = normaliser(codeBin,prof);
+				System.out.println((char)racine.valeur + " " + codBin);
+			}
+			else {
+				parcourArbre(racine.gauche, codeBin + "0",prof);
+				parcourArbre(racine.droit, codeBin + "1",prof);
+			}
+			
+		}
+		
+		int profondeur(ArbreN arb) {
+			int i=0;
+			while(!est_feuille(arb)) {
+				i++;
+				arb = arb.gauche;
+			}
+			return i;
+		}
+		
+		String normaliser (String s,int prof) {
+			int diff = 8-prof%8;
+			for (int i = 0; i < diff; i++) {
+				s+="0";	
+			}
+			return s;
+		}
+
 
 }

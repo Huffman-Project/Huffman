@@ -1,5 +1,7 @@
+package solution_naive;
+
 public class Lettres {
-	
+
 	//retourne la liste de toutes les lettres existantes dans le text
 	char[] trouverLettres(String text) {
 		char[] lettres = new char[text.length()];
@@ -22,10 +24,4 @@ public class Lettres {
 		return lettres;
 	}
 	
-
-	
 }
-
-
-
-
