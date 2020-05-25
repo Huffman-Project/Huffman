@@ -1,7 +1,33 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Huffman {
+	
+	public String lireFichier(String fileName) {
+		String texte = "";
+		
+		try {
+			File fichier = new File("C:\\Users\\Etudiant\\eclipse-workspace\\HuffmanSemiAdaptatif\\src\\" + fileName);
+			Scanner scanner = new Scanner(fichier);
+			
+			while (scanner.hasNextLine()) {
+				String ligne = scanner.nextLine();
+				texte += ligne;
+			}
+			scanner.close();
+			
+			System.out.println("fichier " + fileName + " est bien été lit");
+			
+			return texte;
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
 
 	public void encodage(String texte) {
 		//obtenir les elements avec leurs frequences

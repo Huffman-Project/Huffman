@@ -56,7 +56,6 @@ public class CodeBin {
 			
 			System.out.println("--------------------------------------");
 			System.out.println("fichier texte.txt est bien été creé");
-			System.out.println("--------------------------------------");
 			System.out.println("texte : " + texte);
 			
 

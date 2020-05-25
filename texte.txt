@@ -1,1 +1,1 @@
-Huffman est un algorithme de compression de données
+Huffman est un algorithme de compression des donnÃ©es
