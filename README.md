@@ -6,7 +6,8 @@ l'arbre de la même facon, de telle sorte qu' à chaque instant ils utilisent le
 changent au cours du temps).
 Le codage d'Huffman adaptatif a été concu indépendamment par Faller (1973) et Gallager (1978).
 Knuth a contribué à des améliorations à l'algorithme original (1985), d'ou l'appellation "FGK" (Faller Gallager Knuth).
-*Codage
+*Codage:
+
 L'arbre initial est constitué d'une unique feuille, celle de la lettre vide. A
 chaque fois qu'une lettre x est lue dans le texte source
 — si elle est déjà apparue
@@ -17,7 +18,8 @@ chaque fois qu'une lettre x est lue dans le texte source
 codé (son code ascii en base 2 par exemple),
 — on ajoute une feuille dans l'arbre,
 — on met à jour l'arbre.
-*Décodage
+*Décodage:
+
 L'arbre initial est constitué d'une unique feuille, celle de la lettre vide.
 Jusqu'à épuisement, on parcourt l'arbre en lisant les bits du texte codé
 ('0' à gauche, '1' à droite) jusqu'à arriver à une feuille
