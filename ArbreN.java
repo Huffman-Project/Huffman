@@ -83,6 +83,7 @@ public class ArbreN {
 			
 		}
 		
+		//calcule la profondeur de l'arbre
 		int profondeur(ArbreN arb) {
 			int i=0;
 			while(!est_feuille(arb)) {
@@ -92,8 +93,10 @@ public class ArbreN {
 			return i;
 		}
 		
+		//cette fonction ajoute des 0 à droite du code binaire pour que l'ensembre des lettres seront codées sur
+		//le même nombre de bits
 		String normaliser (String s,int prof) {
-			int diff = 8-prof%8;
+			int diff = prof-s.length()%prof;
 			for (int i = 0; i < diff; i++) {
 				s+="0";	
 			}

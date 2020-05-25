@@ -12,9 +12,7 @@ String text = "cette phrase est un test";
 		ArrayList<ArbreN> alist = arbre.arbreInit(list);
 		
 		ArbreN arb = arbre.arbre_huffman(alist);
-		int prof = arb.profondeur(arb);
-		System.out.println(prof);
-		arbre.parcourArbre(arb, "",prof);
+		arbre.parcourArbre(arb, "",arb.profondeur(arb));
 
 	}
 
