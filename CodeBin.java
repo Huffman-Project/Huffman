@@ -4,18 +4,7 @@ import java.util.ArrayList;
 
 public class CodeBin {
 	
-	ArrayList<Noeud> noeuds;
-	String texte;
-	
-	public CodeBin(ArrayList<Noeud> noeuds, String texte) {
-		super();
-		this.noeuds = noeuds;
-		this.texte = texte;
-	}
-
-	
-
-	public void texteEnBinaire() {
+	public void texteEnBinaire(ArrayList<Noeud> noeuds, String texte) {
 		String code_binaire = "";
 		
 		for (int i=0; i<texte.length(); i++) {
@@ -33,8 +22,43 @@ public class CodeBin {
 			writer.close();
 			
 			System.out.println("--------------------------------------");
-			System.out.println("code : " + code_binaire);
 			System.out.println("fichier codeBinaire.txt est bien été creé");
+			System.out.println("code : " + code_binaire);
+			System.out.println("--------------------------------------");
+
+		} 
+		catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	public void binaireEnTexte(ArrayList<Noeud> noeuds, String binaire) {
+		String texte = "";
+		String lettre_code = "";
+		
+		for (int i=0; i<binaire.length(); i++) {
+			String caractere = String.valueOf(binaire.charAt(i));
+			lettre_code += caractere;
+			
+			for (Noeud noeud : noeuds) {
+				if( (noeud.code_binaire).equals(lettre_code) ) {
+					texte += noeud.lettre;
+					lettre_code = "";
+				}
+			}
+		}
+		
+		try {
+			File fichier = new File("C:\\Users\\Etudiant\\eclipse-workspace\\HuffmanSemiAdaptatif\\src\\texte.txt");
+			PrintWriter writer = new PrintWriter(fichier);
+			writer.write(texte);
+			writer.close();
+			
+			System.out.println("--------------------------------------");
+			System.out.println("fichier texte.txt est bien été creé");
+			System.out.println("--------------------------------------");
+			System.out.println("texte : " + texte);
+			
 
 		} 
 		catch (Exception e) {

@@ -1,23 +1,14 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 
 //class pour obtenire frequence de chaque lettre
 public class Frequence {
 	
-
-	
-	String chaine;
-	//map comme un dictionnaire pour stocker une clé et une valeur
-	Map<Character,Integer> map = new HashMap<Character,Integer>();
-	
-	//constructor 
-	Frequence(String chaine) {
-		this.chaine = chaine;
-	}
-	
-	
-	
-	
-	public Map<Character,Integer> lettre_occ() {
+	public Map<Character,Integer> lettre_occ(String chaine) {
+		//map comme un dictionnaire pour stocker une clé et une valeur
+		Map<Character,Integer> map = new HashMap<Character,Integer>();
 		int i, j; 
 		int occur;
 		char lettre1, lettre2;
@@ -25,20 +16,20 @@ public class Frequence {
 		
 		//parcourir la chaine
 		for(i=0; i<taille; i++ ){  
-			lettre1 = (chaine.toLowerCase()).charAt(i); 
+			lettre1 = chaine.charAt(i); 
 			occur = 1;
 			j = -1;
 			
 			
 			do {
 				j++;
-				lettre2 = (chaine.toLowerCase()).charAt(j); 
+				lettre2 = chaine.charAt(j); 
 			} while( ( j<i ) && ( lettre1!=lettre2 ) );
 			
 			
 			if( j==i ) {
 				for(j=i+1; j<taille; j++) {
-					lettre2 = (chaine.toLowerCase()).charAt(j);
+					lettre2 = chaine.charAt(j);
 					if(lettre1 == lettre2)
 						occur++;
 				}
@@ -49,5 +40,70 @@ public class Frequence {
 		}
 		return map;
 	}
+	
+	
+	public void ecrireFrequences(Map<Character,Integer> map) {
+		
+		try {
+			File fichier = new File("C:\\Users\\Etudiant\\eclipse-workspace\\HuffmanSemiAdaptatif\\src\\lettres.txt");
+			PrintWriter writer = new PrintWriter(fichier);
+			
+			for ( Map.Entry<Character,Integer> entry : map.entrySet()) {
+				writer.write(entry.getKey() + "" + entry.getValue() + "\n");
+	        }
+			
+			writer.close();
+
+			System.out.println("fichier lettres.txt est bien été creé");
+			System.out.println("--------------------------------------");
+
+		} 
+		catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	public Map<Character,Integer> lireFrequences(String fileName) {
+		Map<Character,Integer> map = new HashMap<Character,Integer>();
+		
+		try {
+			File fichier = new File("C:\\Users\\Etudiant\\eclipse-workspace\\HuffmanSemiAdaptatif\\src\\" + fileName);
+			Scanner scanner = new Scanner(fichier);
+			
+			while (scanner.hasNextLine()) {
+				String ligne = scanner.nextLine();
+				//stocker
+				 map.put(ligne.charAt(0), (int) ligne.charAt(1) - 48);
+			}
+			scanner.close();
+			
+			System.out.println("fichier " + fileName + " est bien été lit");
+			System.out.println("--------------------------------------");
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return map;
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

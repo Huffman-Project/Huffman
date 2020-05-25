@@ -1,5 +1,3 @@
-import java.io.File;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -62,20 +60,7 @@ public class Arbre {
 		
 	}
 	
-	public void writeCodes() {
-		try {
-			File fichier = new File("C:\\Users\\Etudiant\\eclipse-workspace\\HuffmanSemiAdaptatif\\src\\lettres.txt");
-			PrintWriter writer = new PrintWriter(fichier);
-			writer.write(lettresCodes);
-			writer.close();
-
-			System.out.println("fichier lettres.txt est bien été creé");
-
-		} 
-		catch (Exception e) {
-			System.out.println(e);
-		}
-	}
+	
 	
 	
 }
