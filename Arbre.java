@@ -13,6 +13,7 @@ public class Arbre {
 	Arbre droit;
 	
 	Arbre() {};
+	//constructeur de l'arbre
 	Arbre(double valeur,Arbre gauche, Arbre droit) {
 		this.valeur = valeur;
 		this.codeBin = "-1";
@@ -73,15 +74,18 @@ public class Arbre {
 	}
 	
 	//parcourt l'arbre et attribue 0 pour le fils gauche et 1 pour le fils droit
-	void parcourArbre (Arbre racine,String codeBin) {
+	ArrayList<Arbre> parcourArbre (Arbre racine,String codeBin,ArrayList<Arbre> arb) {
 		if(est_feuille(racine)) {
 			racine.codeBin = codeBin;
 			System.out.println(racine.poid + " " + codeBin);
+			Arbre arbre = new Arbre(racine.poid,null,null);
+			arbre.codeBin = codeBin;
+			arb.add(arbre);
 		}
 		else {
-			parcourArbre(racine.gauche, codeBin + "0");
-			parcourArbre(racine.droit, codeBin + "1");
+			parcourArbre(racine.gauche, codeBin + "0",arb);
+			parcourArbre(racine.droit, codeBin + "1",arb);
 		}
-		
+		return arb;
 	}
 }
