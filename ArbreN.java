@@ -69,39 +69,39 @@ public class ArbreN {
 			else return false;
 		}
 		
-		//parcourt l'arbre et attribue 0 pour le fils gauche et 1 pour le fils droit
-		void parcourArbre (ArbreN racine,String codeBin,int prof) {
-			if(est_feuille(racine)) {
-				racine.codeBin = codeBin;
-				String codBin = normaliser(codeBin,prof);
-				System.out.println((char)racine.valeur + " " + codBin);
-			}
-			else {
-				parcourArbre(racine.gauche, codeBin + "0",prof);
-				parcourArbre(racine.droit, codeBin + "1",prof);
-			}
+	//parcourt l'arbre et attribue 0 pour le fils gauche et 1 pour le fils droit
+	void parcourArbre (ArbreN racine,String codeBin,int prof) {
+		if(est_feuille(racine)) {
+			String codBin = normaliser(codeBin,prof);
+			racine.codeBin = codBin;
+			System.out.println((char)racine.valeur + " " + codBin);
+		}
+		else {
+			parcourArbre(racine.gauche, codeBin + "0",prof);
+			parcourArbre(racine.droit, codeBin + "1",prof);
+		}
 			
-		}
+	}
 		
-		//calcule la profondeur de l'arbre
-		int profondeur(ArbreN arb) {
-			int i=0;
-			while(!est_feuille(arb)) {
-				i++;
-				arb = arb.gauche;
-			}
-			return i;
+	//calcule la profondeur de l'arbre
+	int profondeur(ArbreN arb) {
+		int i=0;
+		while(!est_feuille(arb)) {
+			i++;
+			arb = arb.gauche;
 		}
+		return i;
+	}
 		
-		//cette fonction ajoute des 0 à droite du code binaire pour que l'ensembre des lettres seront codées sur
-		//le même nombre de bits
-		String normaliser (String s,int prof) {
-			int diff = prof-s.length()%prof;
-			for (int i = 0; i < diff; i++) {
-				s+="0";	
-			}
-			return s;
+	//cette fonction ajoute des 0 à droite du code binaire pour que l'ensembre des lettres seront codées sur
+	//le même nombre de bits
+	String normaliser (String s,int prof) {
+		int diff = prof-s.length()%prof;
+		for (int i = 0; i < diff; i++) {
+			s+="0";	
 		}
+		return s;
+	}
 
 
 }

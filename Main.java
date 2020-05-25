@@ -13,6 +13,9 @@ String text = "cette phrase est un test";
 		
 		ArbreN arb = arbre.arbre_huffman(alist);
 		arbre.parcourArbre(arb, "",arb.profondeur(arb));
+		
+		Codage_decodage codage = new Codage_decodage();
+		codage.Codage(text, alist);
 
 	}
 
