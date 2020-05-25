@@ -3,6 +3,7 @@
 #include <string.h>
 
 #define symbolesPossibles 256 /* nombre des symboles possibles */
+#define a -1
 
 enum { CODER, DECODER }; /* les options du programme */
 
@@ -37,7 +38,7 @@ Node* creerArbre(){
     arbre->filsGauche = NULL;
     arbre->filsDroit = NULL;
 
-    arbre->symbol = 1
+    arbre->symbol = a
     arbre->val = 0
     arbre->ord = symbolesPossibles * 2 
     return arbre;
@@ -75,4 +76,19 @@ int* codeDuNoeud(Node *node, int *n){
     renverserCode(code, i);
     *n = i;
     return code;
+}
+/*Fonction qui cherche un noeud qui a la même valeur que le noeud d'entrée
+  nEntrée: noeud d'entrée */ 
+Node* trouveNoeud(Node *nEntrée, Node *racine){
+    Node *résultat = nEntrée;
+    if(racine->val > résultat->val){
+        Node *gauche = trouveNoeud(résultat, racine->filsGauche);
+        if (gauche) résultat = gauche;
+        Node *droit = trouveNoeud(résultat, racine->filsDroit);
+        if (droit) résultat = droit;
+    }
+    else if(racine->val == résultat->val){
+        résultat=racine;
+    }
+    return (résultat != nEntrée) ? résultat : NULL;
 }
