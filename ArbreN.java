@@ -19,16 +19,6 @@ public class ArbreN {
 			this.droit = droit;
 		};
 	
-	/*int ListLenght (char[] list) {
-		int nbr=0;
-		for(int i=0; i<list.length; i++) {
-			if(list[i] != Character.MIN_VALUE) {
-				nbr++;
-			}
-		}
-		return nbr;
-	}*/
-	
 		
 	//initialiser tous les lettres qu'on a à des feuilles
 	//cette methode return un tableau des arbres qui ont comme valeur le code Ascii de la lettre
@@ -80,7 +70,6 @@ public class ArbreN {
 			parcourArbre(racine.gauche, codeBin + "0",prof);
 			parcourArbre(racine.droit, codeBin + "1",prof);
 		}
-			
 	}
 		
 	//calcule la profondeur de l'arbre
