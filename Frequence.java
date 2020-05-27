@@ -43,9 +43,10 @@ public class Frequence {
 	
 	
 	public void ecrireFrequences(Map<Character,Integer> map) {
+		String fileName = "outputs\\lettres.txt";
 		
 		try {
-			File fichier = new File("C:\\Users\\Etudiant\\eclipse-workspace\\HuffmanSemiAdaptatif\\src\\lettres.txt");
+			File fichier = new File("src\\" + fileName);
 			PrintWriter writer = new PrintWriter(fichier);
 			
 			for ( Map.Entry<Character,Integer> entry : map.entrySet()) {
@@ -54,8 +55,8 @@ public class Frequence {
 			
 			writer.close();
 
-			System.out.println("fichier lettres.txt est bien été creé");
-			System.out.println("--------------------------------------");
+			//System.out.println("fichier " + fileName + " est bien été creé");
+			//System.out.println("--------------------------------------");
 
 		} 
 		catch (Exception e) {
@@ -67,7 +68,7 @@ public class Frequence {
 		Map<Character,Integer> map = new HashMap<Character,Integer>();
 		
 		try {
-			File fichier = new File("C:\\Users\\Etudiant\\eclipse-workspace\\HuffmanSemiAdaptatif\\src\\" + fileName);
+			File fichier = new File("src\\" + fileName);
 			Scanner scanner = new Scanner(fichier);
 			
 			while (scanner.hasNextLine()) {
@@ -77,8 +78,8 @@ public class Frequence {
 			}
 			scanner.close();
 			
-			System.out.println("fichier " + fileName + " est bien été lit");
-			System.out.println("--------------------------------------");
+			//System.out.println("fichier " + fileName + " est bien été lit");
+			//System.out.println("--------------------------------------");
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

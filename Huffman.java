@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
@@ -10,16 +12,16 @@ public class Huffman {
 		String texte = "";
 		
 		try {
-			File fichier = new File("C:\\Users\\Etudiant\\eclipse-workspace\\HuffmanSemiAdaptatif\\src\\" + fileName);
+			File fichier = new File("src\\" + fileName);
 			Scanner scanner = new Scanner(fichier);
 			
 			while (scanner.hasNextLine()) {
-				String ligne = scanner.nextLine();
+				String ligne = scanner.nextLine()  ;
 				texte += ligne;
 			}
 			scanner.close();
 			
-			System.out.println("fichier " + fileName + " est bien été lit");
+			//System.out.println("fichier " + fileName + " est bien été lit");
 			
 			return texte;
 			
@@ -60,10 +62,11 @@ public class Huffman {
 		code.texteEnBinaire(noeuds,texte);
 	}
 	
+	
 	public void decodage(String binaire) {
 		//obtenir les elements avec leurs frequences
 		Frequence  frequence= new Frequence();
-		Map<Character,Integer> map = frequence.lireFrequences("lettres.txt");
+		Map<Character,Integer> map = frequence.lireFrequences("outputs\\lettres.txt");
 		
 		//reconstruire l'arbre
 		ArrayList<Noeud> noeuds = new ArrayList<Noeud>();
@@ -80,6 +83,67 @@ public class Huffman {
 		CodeBin code = new CodeBin();
 		code.binaireEnTexte(noeuds,binaire);
 	}
+	
+	
+	
+	
+	
+	
+	/******************************** performance **************************/
+	
+	
+	public void performance() {
+		String texteFile = "charts\\liste_texte.txt";
+		String codeFile = "outputs\\codeBinaire.txt";
+		String code = "";
+		String texte = "";
+		try {
+			File fichier = new File("src\\" + texteFile);
+			Scanner scanner = new Scanner(fichier);
+			
+			System.out.println("\n------------Performance-----------\n");
+			
+			while (scanner.hasNextLine()) {
+				String ligne = scanner.nextLine();
+				texte += ligne;
+				
+				encodage(texte);
+				code = lireFichier(codeFile);
+		        
+		        ecrirePoints(texte.length(),code.length());
+				
+				
+			}
+			scanner.close();
+			
+			System.out.println("\n--------------------------------------");
+			System.out.println("fichier points.txt est bien été creé");
+			System.out.println("--------------------------------------");
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public void ecrirePoints(int taille, long temps) {
+		String fileName = "charts\\points.txt";
+		try {
+			FileWriter fichier = new FileWriter("src\\" + fileName, true);
+			PrintWriter writer = new PrintWriter(fichier);
+			writer.write(taille + " " + temps + "\n");
+			writer.close();
+
+
+		} 
+		catch (Exception e) {
+			System.out.println(e);
+		}
+		
+	}
+	
+	
 	
 }
 

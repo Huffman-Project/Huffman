@@ -16,15 +16,16 @@ public class CodeBin {
 		}
 		
 		try {
-			File fichier = new File("C:\\Users\\Etudiant\\eclipse-workspace\\HuffmanSemiAdaptatif\\src\\codeBinaire.txt");
+			String fileName = "outputs\\codeBinaire.txt";
+			
+			File fichier = new File("src\\" + fileName);
 			PrintWriter writer = new PrintWriter(fichier);
 			writer.write(code_binaire);
 			writer.close();
 			
-			System.out.println("--------------------------------------");
-			System.out.println("fichier codeBinaire.txt est bien été creé");
+			System.out.println("--------- Codage ------------");
+			System.out.println("fichier " + fileName + " est bien été creé");
 			System.out.println("code : " + code_binaire);
-			System.out.println("--------------------------------------");
 
 		} 
 		catch (Exception e) {
@@ -49,13 +50,15 @@ public class CodeBin {
 		}
 		
 		try {
-			File fichier = new File("C:\\Users\\Etudiant\\eclipse-workspace\\HuffmanSemiAdaptatif\\src\\texte.txt");
+			String fileName = "outputs\\texte.txt";
+			
+			File fichier = new File("src\\" + fileName);
 			PrintWriter writer = new PrintWriter(fichier);
 			writer.write(texte);
 			writer.close();
 			
-			System.out.println("--------------------------------------");
-			System.out.println("fichier texte.txt est bien été creé");
+			System.out.println("\n--------- Decodage ----------");
+			System.out.println("fichier " + fileName + " bien été creé");
 			System.out.println("texte : " + texte);
 			
 

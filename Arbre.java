@@ -52,7 +52,7 @@ public class Arbre {
 		if( (racine.fils_gauche == null) && (racine.fils_droite == null) ) {
 			racine.code_binaire = code_binaire;
 			lettresCodes += racine.lettre + " " + code_binaire + "\n";
-			System.out.println(racine.lettre + " " + code_binaire);
+			//System.out.println(racine.lettre + " " + code_binaire);
 		} else {
 			parcArbre(racine.fils_gauche, code_binaire + "0");
 			parcArbre(racine.fils_droite, code_binaire + "1");			
