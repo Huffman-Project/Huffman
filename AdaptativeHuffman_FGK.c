@@ -28,6 +28,8 @@ struct symbole {
     char symbole;
     Node *arbre;
 };
+typedef struct symbole Symbole;
+/*Creation de l'arbre*/
 Node* creerArbre(){
     Node* arbre = malloc(sizeof(Node))
     arbre->sZero = 1;
@@ -38,10 +40,20 @@ Node* creerArbre(){
     arbre->filsGauche = NULL;
     arbre->filsDroit = NULL;
 
-    arbre->symbol = a
+    arbre->symbole = a
     arbre->val = 0
     arbre->ord = symbolesPossibles * 2 
     return arbre;
+}
+/*Obtient un noeud de l'arbre en se basant sur son symbole et retourne son pointeur
+  symbole: celui qu'on veut obtenir
+  symboles: vecteur de tous les symboles*/
+Node* obtNoeud(unsigned char symbole, Symbole **symboles){
+    Symbole *pointeur = symboles[(unsigned int)symbole],
+    if(!pointeur){
+        return NULL;
+    }
+    return pointeur->arbre
 }
 /* Fonction qui renverse un tableau d'entiers
    code: le tableau d'entiers (contiendera des o et 1s)
@@ -81,14 +93,17 @@ int* codeDuNoeud(Node *node, int *n){
   nEntrée: noeud d'entrée */ 
 Node* trouveNoeud(Node *nEntrée, Node *racine){
     Node *résultat = nEntrée;
-    if(racine->val > résultat->val){
+    if(racine->val > résultat->val && !racine->sfeuille){
         Node *gauche = trouveNoeud(résultat, racine->filsGauche);
         if (gauche) résultat = gauche;
         Node *droit = trouveNoeud(résultat, racine->filsDroit);
         if (droit) résultat = droit;
     }
-    else if(racine->val == résultat->val){
+    else if(racine->val == résultat->val && racine->ord > résultat->ord){
         résultat=racine;
     }
     return (résultat != nEntrée) ? résultat : NULL;
 }
+
+
+
