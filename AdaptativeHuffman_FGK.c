@@ -89,6 +89,40 @@ int* codeDuNoeud(Node *node, int *n){
     *n = i;
     return code;
 }
+/*Fonction qui ajoute un fils à l'arbre*/
+Node* ajoutefils(Node *parent, int sZero, int sRacine, unsigned char symbole, int val, int ord) {
+    Node *noeud = malloc(sizeof(Node));
+    node->sZero = sZero;
+    node->sRacine = sRacine;
+    node->sfeuille = 1;
+    node->parent = parent;
+    node->filsGauche = NULL;
+    node->filsDroit = NULL;
+    node->symbole = symbole;
+    node->val = val;
+    node->ord = ord;
+    return noeud;
+}
+/*Fonction qui ajoute un symbole à l'arbre*/
+Node* ajouteSymbole(unsigned char symbole, Node **zeroNoeud, Symbole **symboles) {
+    Node *noeudGauche = ajoutefils(*zeroNoeud, 1, 0, a, 0, (*zeroNoeud)->ord - 2);
+    Node *noeudDroit = ajoutefils(*zeroNoeud, 0, 0, symbole, 1, (*zeroNode)->ord - 1);
+    
+    Node *zNprecedent = *zeroNoeud;
+    (*zeroNoeud)->sZero = 0;
+    (*zeroNoeud)->sFeuille = 0;
+    (*zeroNoeud)->filsGauche = noeudGauche;
+    (*zeroNoeud)->filsDroit = noeudDroit;
+    
+    unsigned int indiceSymbole = (unsigned int)symbole;
+    symboles[indiceSymbole] = malloc(sizeof(Symbole));
+    symboles[indiceSymbole]->symbole = symbole;
+    symboles[indiceSymbole]->arbre = noeudDroit;
+    
+    *zeroNoeud = noeudGauche;
+    
+    return zNpredendent;
+}
 /*Fonction qui cherche un noeud qui a la même valeur que le noeud d'entrée
   nEntrée: noeud d'entrée */ 
 Node* trouveNoeud(Node *nEntrée, Node *racine){
@@ -105,5 +139,42 @@ Node* trouveNoeud(Node *nEntrée, Node *racine){
     return (résultat != nEntrée) ? résultat : NULL;
 }
 
+/*Fonction qui permute deux noeuds*/
+void permuteNoeuds(Node *n1, Node *n2) {
+    int tempOrd = n1->ord;
+    n1->ord = n2->ord;
+    n2->ord = tempOrd;
+    
+    if (n1->parent->filsGauche == n1) {
+        n1->parent->filsGauche = n2;
+    } else {
+        n1->parent->filsDroit = n2;
+    }
+    
+    if (n2->parent->filsGauche == n2) {
+        n2->parent->filsGauche = n1;
+    } else {
+        n2->parent->filsDroit = n1;
+    }
+    
+    Node *temp = n1->parent;
+    n1->parent = n2->parent;
+    n2->parent = temp;
+}
+/*Fonction qui met à jour l'arbre*/
+void actualise(Node *noeudActuel, Node *racine) {
+    while (!noeudActuel->sRacine) {
+        Node *remplaceNoeud = trouveNoeud(noeudActuel, racine);
+        
+        if (remplaceNoeud && noeudActuel->parent != remplaceNoeud) {
+            permuteNoeuds(noeudActuel, remplaceNoeud);
+        }
+        
+        (noeudActuel->val)++;
+        noeudActuel = noeudActuel->parent;
+    }
+    
+    (noeudActuel->val)++;
+}
 
 
