@@ -176,5 +176,51 @@ void actualise(Node *noeudActuel, Node *racine) {
     
     (noeudActuel->val)++;
 }
+/*Ajoute un code au Buffer*/
+unsigned char ajouteAuBuffer(int *code, int longeurDuCode, FILE *fp, unsigned char buffer, int *bufferSize) {
+    unsigned char bufferActuel = buffer;
+    
+    int i;
+    for (i = 0; i < longueurDuCode; i++) {
+        unsigned char bit = ((unsigned char) code[i]) << (*bufferSize - 1);
+        bufferActuel = bufferActuel | bit;
+        
+        (*bufferSize)--;
+        
+        if (*bufferSize == 0) {
+            fwrite(&bufferActuel, sizeof(unsigned char), 1, fp);
+            bufferActuel = 0;
+            *bufferSize = 8;
+        }
+    }
+    
+    return bufferActuel;
+}
+/*Ajoute un octet au buffer*/
+unsigned char ajouteOctet(char octet, FILE *fp, unsigned char buffer, int *bufferSize) {
+    unsigned char bufferActuel = buffer;
+    
+    int bitsEcrites = *bufferSize;
+    int change = 8 - bitsEcrites;
+    unsigned char tempoctet = ((unsigned char) octet) >> change;
+    currBuffer = currBuffer | tempoctet;
+    
+    fwrite(&bufferActuel, sizeof(unsigned char), 1, fp);
+    
+    bufferActuel = octet << bitsEcrites;
+    
+    return (*bufferSize == 8) ? 0 : bufferActuel;
+}
 
+void ecritAuBuffer(FILE *fp, unsigned char buffer, int bufferSize) {
+    if (bufferSize < 8) {
+        fwrite(&buffer, sizeof(unsigned char), 1, fp);
+    }
+    buffer = (bufferSize == 8) ? 8 : 8 - bufferSize;
+    fwrite(&buffer, sizeof(unsigned char), 1, fp);
+}
 
+/*Fonction qui code le fichier d'entrée*/
+void code(FILE *fp_in, FILE *fp_out) {
+    char buffer = 0;
+    int bufferSize = 8;
