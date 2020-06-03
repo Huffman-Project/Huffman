@@ -5,8 +5,6 @@
 #define symbolesPossibles 256 /* nombre des symboles possibles */
 #define a -1
 
-enum { CODER, DECODER }; /* les options du programme */
-
 /* Déscription de chaque noeud de l'arbre */
 struct node {
     int sZero;
@@ -60,7 +58,7 @@ Node* obtNoeud(unsigned char symbole, Symbole **symboles){
    longueurDuCode: la longueur du tableau*/
 void renverserCode(int *code, int longueurDuCode){
     if(code == NULL){
-        printf("le code est NULL");
+        printf("Le code est NULL");
         return;
     }
     int *start = code;
@@ -222,5 +220,35 @@ void ecritAuBuffer(FILE *fp, unsigned char buffer, int bufferSize) {
 
 /*Fonction qui code le fichier d'entrée*/
 void code(FILE *fp_in, FILE *fp_out) {
-    char buffer = 0;
+    unsigned char buffer = 0;
     int bufferSize = 8;
+    Node *racine = creerArbre();
+    Node *zeroNoeud = racine;
+    Symbole **symboles = calloc(symbolesPossibles, sizeof(Symbole*)); 
+    
+        unsigned char octetActuel;
+        while (fread(&octetActuel, sizeof(unsigned char), 1, fp_in) > 0) {
+            Node *symboleArbre = obtNoeud(octetActuel, symboles);
+        
+            if (symboleArbre) {
+                int longueurDuCode;
+                int *symboleCode = codeDuNoeud(symboleArbre, &longueurDuCode);
+                buffer = ajouteAuBuffer(symboleCode, longueurDuCode, fp_out, buffer, &bufferSize);
+            
+                actualise(symboleArbre, racine);
+                free(symboleCode);
+            } else {
+                int longueurDuCode;
+            
+                int *zeroCode = codeDuNoeud(zeroNoeud, &longueurDuCode);
+                buffer = ajouteAuBuffer(zeroCode, longueurDuCode, fp_out, buffer, &bufferSize);
+                buffer = ajouteAuBuffer(octetActuel, fp_out, buffer, &bufferSize);
+            
+                Node *nouveauNoeud = ajouteSymbole(octetActuel, &zeroNoeud, symboles);
+                actualise(nouveauNoeud, racine);
+                free(zeroCode);
+            }
+        }
+    
+    ecritAuBuffer(fp_out, buffer, bufferSize);
+}
