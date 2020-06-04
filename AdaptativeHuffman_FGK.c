@@ -5,6 +5,8 @@
 #define symbolesPossibles 256 /* nombre des symboles possibles */
 #define a -1
 
+enum { CODER, DECODER }; /* options du programme */
+
 /* Déscription de chaque noeud de l'arbre */
 struct node {
     int sZero;
@@ -291,8 +293,98 @@ void decode(FILE *fp_in, FILE *fp_out) {
     Node *zeroNoeud = racine;
     unsigned char buffer = 0;
     int bufferSize = 0;
+    Symbole **symboles = calloc(symbolesPossibles, sizeof(Symbole*)); 
     
+    fseek(fp_in, -1, SEEK_END);
+    long int fileSize = ftell(fp_in);
+    
+  
+    unsigned char l;
+    fread(&l, sizeof(unsigned char), 1, fp_in);
+    rewind(fp_in);
+    
+    while (!feof(fp_in)) {
+        Node *noeudActuel = racine;
+        
+        int finDuFichier = 0;
+        while (!noeudActuel->sFeuille && !finDuFichier) {
+            int bit = readBit(fp_in, &buffer, &bufferSize, fileSize, l);
+            if (bit == 0) {
+                noeudActuel = noeudActuel->filsGauche;
+            } else if (bit == 1) {
+                noeudActuel = noeudActuel->filsDroit;
+            } else {
+                finDuFichier = 1;
+            }
+        }
+        
+        if (finDuFichier) break;
+        
+        unsigned char c;
+        if (noeudActuele->sZero) {
+            c = lireOctet(fp_in, &buffer, &bufferSize, fileSize, l);
+            noeudActuel = ajouteSymbole(c, &zeroNoeud, symboles);
+        } else {
+            c = noeudActuel->symbole;
+        }
+        
+        fwrite(&c, sizeof(unsigned char), 1, fp_out);
+        actualise(noeudActuel, racine);
+    }
+}
 
+int main(int argc, char *argv[]) {
+	if (argc != 4) {
+        printf("Usage:\n");
+		printf("\t./fgk  -c (pour coder)\n");
+		printf("\t./fgk  -d (pour decoder)\n");
+		exit(1);
+	}
+	
+    FILE *fp_in;
+    FILE *fp_out;
+    int option;
+    
+    /* fichier d'entrée */
+    fp_in = fopen(argv[1], "rb");
+    while (fp_in == NULL) {
+        char in_file[100];
+        printf("Le fichier %s ne peut pas être ouvert. Essayer une autre fois: ", argv[1]);
+        scanf("%s", in_file);
+        fp_in = fopen(in_file, "rb");
+    }
+
+    /* fichier de sortie */
+    fp_out = fopen(argv[2], "wb");
+
+    
+    if (strcmp(argv[3], "-c") == 0 || strcmp(argv[3], "-C") == 0) {
+        option = CODER;
+    } else if (strcmp(argv[3], "-d") == 0 || strcmp(argv[3], "-D") == 0) {
+        option = DECODER;
+    } else {
+        char opt;
+        do {
+            printf("Saisir 'c' pour coder ou 'd' pour decoder: ");
+            scanf("%c", &opt);
+            getchar();
+        } while (opt != 'c' && opt != 'C' && opt != 'd' && opt != 'D');
+        option = (opt == 'c' || opt == 'C') ? CODER : DECODER;
+    }
+    
+    if (option == CODER) {
+        code(fp_in, fp_out);
+        printf("Le fichier a été codé.\n");
+    } else {
+        decode(fp_in, fp_out);
+        printf("Le fichier a été décodé.\n");
+    }
+    
+    fclose(fp_in);
+    fclose(fp_out);
+    
+    return 0;
+}
 
 
 
