@@ -252,3 +252,47 @@ void code(FILE *fp_in, FILE *fp_out) {
     
     ecritAuBuffer(fp_out, buffer, bufferSize);
 }
+/*Fonction qui lit le bit suivant à être lu dans le buffer et le retourner
+  buffer: le buffer d'entrée qui peut être mis à jour au cas d'une lecture du fichier d'entrée
+  buffersize: le nombre de bits qui restent à lire dans le buffer
+  l: le nombre de bits qui doivent être lus jusqu'au dernier octet  */
+int lireBit(FILE *fp, unsigned char *buffer, int *bufferSize, long int fileSize, int l) {
+    if (*bufferSize == 0) {
+        *bufferSize = 8;
+        fread(buffer, sizeof(unsigned char), 1, fp);
+    }
+    
+    if (l != 8) {
+        if (ftell(fp) == fileSize && l <= (8 - *bufferSize)) return -1;
+    }
+    
+    if (ftell(fp) > fileSize || feof(fp)) return -1;
+    
+    (*bufferSize)--;
+    
+    return (*buffer >> *bufferSize) & 1;
+}
+/*Fonction qui lit les 8 bits et les retourne comme un char*/
+char lireOctet(FILE *fp, unsigned char *buffer, int *bufferSize, long int fileSize, int l) {
+    char result = 0;
+    
+    int i, bit;
+    for (i = 0; i < 8; i++) {
+        bit = lireBit(fp, buffer, bufferSize, fileSize, l);
+        bit = bit << (7-i);
+        résultat |= bit;
+    }
+    
+    return résultat;
+}
+/*Fonction qui décode le fichier */
+void decode(FILE *fp_in, FILE *fp_out) {
+    Node *racine = creerArbre();
+    Node *zeroNoeud = racine;
+    unsigned char buffer = 0;
+    int bufferSize = 0;
+    
+
+
+
+
