@@ -1,5 +1,4 @@
 package solution_naive;
-import java.io.*;
 import java.util.ArrayList;
 
 public class Codage_decodage {
@@ -24,8 +23,7 @@ public class Codage_decodage {
 		ArrayList<ArbreN> alist = arbre.arbreInit(lettres);
 		
 		ArbreN arb = arbre.arbre_huffman(alist);
-		int prof = arb.profondeur(arb);
-		arbre.parcourArbre(arb, "",prof);
+		arbre.parcourArbre(arb, "");
 		
 		int longueur = alist.get(0).codeBin.length();
 		
@@ -43,25 +41,6 @@ public class Codage_decodage {
 	}
 	
 	
-	//pour generer un fichier qui contient une liste des longueurs de textes et les longueurs de leurs codes
-	void Performance (String[] lignes,ArrayList<ArbreN> arb) throws Exception{
-		File fichier = new File("c:\\Users\\dell\\Desktop\\output.txt");
-		if (!fichier.isFile()) {
-		    fichier.createNewFile();
-		   }
-		
-		String text = "";
-		
-		for (String ligne : lignes) {
-			text +=ligne;
-			String code = Codage(text,arb);
-			
-			FileWriter f = new FileWriter("c:\\Users\\dell\\Desktop\\output.txt", true);
-			PrintWriter writer = new PrintWriter(f);
-			writer.write(text.length() + " " + code.length() + "\n");
-			writer.close();
-			
-			}
-	}
+	
 
 }
