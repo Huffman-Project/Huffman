@@ -1,9 +1,7 @@
-package huff;
-
 import java.util.ArrayList;
-
 public class CodageDecod {
 	
+	//construit l'arbre et génère le tableau qui contient chque caractère et son code binaire
 	ArrayList<Arbre> huffman(){
 		Frequences frequence= new Frequences();
 		double [] frq_table = frequence.frq();
@@ -19,7 +17,8 @@ public class CodageDecod {
 		return tableauDesCodes;
 	}
 	
-	void Codage(String text, ArrayList<Arbre> arb) {
+	//fonction récursive qui génère le code final du text donné en input
+	String Codage(String text, ArrayList<Arbre> arb) {
 		String code = "";
 		for (int i=0; i<text.length();i++) {
 			char lettre = text.charAt(i);
@@ -29,7 +28,8 @@ public class CodageDecod {
 				}
 			}
 		}
-		System.out.println("le codage de cette phrase:'"+text+"' "+"est les suivant:\n"+code);
+		//System.out.println("le codage de cette phrase:'"+text+"' "+"est les suivant:\n"+code);
+		return code;
 	}
 	
 	void Decodage(String code) {
@@ -48,5 +48,6 @@ public class CodageDecod {
 		}
 		System.out.println("ce code s'interprète comme suit : "+text);
 	}
+
 
 }

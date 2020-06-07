@@ -1,7 +1,4 @@
-package huff;
-
 import java.util.*;
-
 public class Arbre {
 	
 	double valeur;
@@ -77,7 +74,8 @@ public class Arbre {
 	ArrayList<Arbre> parcourArbre (Arbre racine,String codeBin,ArrayList<Arbre> arb) {
 		if(est_feuille(racine)) {
 			racine.codeBin = codeBin;
-			System.out.println(racine.poid + " " + codeBin);
+			//cette ligne affiche chaque caractère et son code binaire correspondant
+			//System.out.println(racine.poid + " " + codeBin);
 			Arbre arbre = new Arbre(racine.poid,null,null);
 			arbre.codeBin = codeBin;
 			arb.add(arbre);
@@ -88,4 +86,5 @@ public class Arbre {
 		}
 		return arb;
 	}
+
 }
