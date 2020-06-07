@@ -1,14 +1,9 @@
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Arbre {
-	Map<Character,Integer> map ;
 	String lettresCodes = "" ;
 
-	public Arbre(Map<Character, Integer> map) {
-		super();
-		this.map = map;
-	}
+	
 	
 	public Noeud construire(ArrayList<Noeud> noeuds){
 		

@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Huffman {
@@ -34,11 +35,11 @@ public class Huffman {
 	public void encodage(String texte) {
 		//obtenir les elements avec leurs frequences
 		Frequence  frequence= new Frequence();
-		Map<Character,Integer> map = frequence.lettre_occ(texte) ;
+		Map<Character,Integer> newMap = frequence.lettre_occ(texte) ;
 		
 		//trier les elements par frequence 
-		SortByFreq sortByFreq = new SortByFreq(map);
-		Map<Character,Integer> newMap = sortByFreq.sortByValue() ;
+		//SortByFreq sortByFreq = new SortByFreq(map);
+		//Map<Character,Integer> newMap = sortByFreq.sortByValue() ;
 		//export liste des frequences
 		frequence.ecrireFrequences(newMap);
 		
@@ -51,7 +52,7 @@ public class Huffman {
         }
 		
 		//construire l'arbre et retourne la racine
-		Arbre arbre = new Arbre(map);
+		Arbre arbre = new Arbre();
 		Noeud racine = arbre.construire(noeuds);
 		
 		//parcourir l'arbre pour generer les codes pour chaque lettre
@@ -75,7 +76,7 @@ public class Huffman {
 			noeud.lettre = entry.getKey();
 			noeuds.add(noeud);
         }
-		Arbre arbre = new Arbre(map);
+		Arbre arbre = new Arbre();
 		Noeud racine = arbre.construire(noeuds);
 		arbre.parcArbre(racine, "");
 		
@@ -90,41 +91,6 @@ public class Huffman {
 	
 	
 	/******************************** performance **************************/
-	
-	
-	public void performance() {
-		String texteFile = "charts\\liste_texte.txt";
-		String codeFile = "outputs\\codeBinaire.txt";
-		String code = "";
-		String texte = "";
-		try {
-			File fichier = new File("src\\" + texteFile);
-			Scanner scanner = new Scanner(fichier);
-			
-			System.out.println("\n------------Performance-----------\n");
-			
-			while (scanner.hasNextLine()) {
-				String ligne = scanner.nextLine();
-				texte += ligne;
-				
-				encodage(texte);
-				code = lireFichier(codeFile);
-		        
-		        ecrirePoints(texte.length(),code.length());
-				
-				
-			}
-			scanner.close();
-			
-			System.out.println("\n--------------------------------------");
-			System.out.println("fichier points.txt est bien été creé");
-			System.out.println("--------------------------------------");
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	
 	
 	public void ecrirePoints(int taille, long temps) {
@@ -143,6 +109,42 @@ public class Huffman {
 		
 	}
 	
+	
+	public long temps(int taille) {
+		
+		long somme = 0;
+		int iter = 0;
+		int max_iter = 100;
+		
+		while(iter < max_iter) {
+			
+			//generer un texte
+			String texte = "";
+			while(texte.length() < taille) {
+				Random randomNbr = new Random();
+				char caractere = (char)(randomNbr.nextInt(25) + 'A');
+				texte += caractere;
+			}
+			
+			//mesurer le temps
+			long start = System.nanoTime();
+			this.encodage(texte);
+	        long end = System.nanoTime();
+	        long temps = end - start;
+	        System.out.println("------ iter est : " + iter);
+	        System.out.println("------ temps est : " + temps);
+
+	        
+        	somme += temps;
+	        
+	        
+	        iter++;
+			
+
+		}
+		long moyenne = somme/max_iter;
+		return moyenne;
+	}
 	
 	
 }
