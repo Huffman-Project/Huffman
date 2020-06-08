@@ -78,6 +78,7 @@ public class Huffman {
         }
 		Arbre arbre = new Arbre();
 		Noeud racine = arbre.construire(noeuds);
+		
 		arbre.parcArbre(racine, "");
 		
 		//decoder le code binaire et creer un fichier contenant le texte
@@ -90,7 +91,7 @@ public class Huffman {
 	
 	
 	
-	/******************************** performance **************************/
+	/******************************** complexity **************************/
 	
 	
 	public void ecrirePoints(int taille, long temps) {
@@ -109,40 +110,43 @@ public class Huffman {
 		
 	}
 	
+	public String genererTexte(int taille) {
+		//generer un texte
+		String texte = "";
+		while(texte.length() < taille) {
+			Random randomNbr = new Random();
+			char caractere = (char)(randomNbr.nextInt(90) + '!');
+			texte += caractere;
+		}
+		return texte;
+	}
 	
-	public long temps(int taille) {
+	
+	public long temps(String texte) {
 		
 		long somme = 0;
 		int iter = 0;
-		int max_iter = 100;
+		int max_iter = 10;
 		
 		while(iter < max_iter) {
 			
-			//generer un texte
-			String texte = "";
-			while(texte.length() < taille) {
-				Random randomNbr = new Random();
-				char caractere = (char)(randomNbr.nextInt(25) + 'A');
-				texte += caractere;
-			}
 			
 			//mesurer le temps
 			long start = System.nanoTime();
+			
 			this.encodage(texte);
+			
 	        long end = System.nanoTime();
 	        long temps = end - start;
-	        System.out.println("------ iter est : " + iter);
-	        System.out.println("------ temps est : " + temps);
-
 	        
         	somme += temps;
-	        
-	        
 	        iter++;
 			
 
 		}
+		
 		long moyenne = somme/max_iter;
+		
 		return moyenne;
 	}
 	

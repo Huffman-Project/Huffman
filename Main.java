@@ -4,7 +4,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		
-		//Huffman huffman = new Huffman();
+		Huffman huffman = new Huffman();
 
 		
 		
@@ -23,19 +23,30 @@ public class Main {
 
 		
 		
-		
 		int taille = 10;
-		int max_taille = 50000;
+		int max_taille = 5000;
+		
+		
 		
 		while(taille <= max_taille) {
-			Huffman huffman = new Huffman();
-			long temps = huffman.temps(taille);
-			huffman.ecrirePoints(taille,temps);
-			taille += 10;
 			
+			long somme = 0;
+			int max_iter = 50;
+			
+			for (int i=0 ; i<max_iter; i++) {
+			
+				String texte = huffman.genererTexte(taille);
+				long temps = huffman.temps(texte);
+				somme += temps;
+				
+			}
+			
+			huffman.ecrirePoints(taille, somme/max_iter);
+			
+			taille += 50;
 		}
 		
-		System.out.println("\n----------------       ok         ---------------------");
+		System.out.println("\n----------------       ok         ---------------------"); 
 		
 	}
 
