@@ -106,7 +106,7 @@ class v(object):
 
         i = 8
         while i < len(texte):
-            noeud = noeud.gauche if text[i] == '0' else noeud.droit
+            noeud = noeud.gauche if texte[i] == '0' else noeud.droit
             symbole = noeud.symbole
 
             if symbole:
