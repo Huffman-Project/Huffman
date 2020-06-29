@@ -1,71 +1,59 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.Random;
-
-public class Complexity {
+import java.util.ArrayList;
+public class CodageDecod {
 	
-    Frequences frq = new Frequences();
-    CodageDecod codage = new CodageDecod();
+	//construit l'arbre et génère le tableau qui contient chque caractère et son code binaire
+	ArrayList<Arbre> huffman(String text){
+		Frequences frequence= new Frequences();
+		double [] big_frq_table = frequence.frq();
+		
+		double [] frq_table = new double[255];
+		for(int i=0; i<text.length(); i++) {
+			char lettre = text.charAt(i);
+			frq_table[(int)lettre] = big_frq_table[(int)lettre];
+		}
+		
+		Arbre arbre = new Arbre();
+		ArrayList<Arbre> arbre_init = arbre.arbre_init(frq_table);
+		
+		Arbre huffman_arbre = arbre.arbre_huffman(arbre_init);
+		
+		ArrayList<Arbre> tableauDesCodes = new ArrayList<Arbre>();
+		tableauDesCodes = arbre.parcourArbre(huffman_arbre,"",tableauDesCodes);
+		
+		return tableauDesCodes;
+	}
 	
-    
-    //fonction qui génère un string de caractères aléatoire et de longueur 'taille' donnée en input
-	String genere_text(int taille) {
+	//fonction récursive qui génère le code final du text donné en input
+	String Codage(String text, ArrayList<Arbre> arb) {
+		String code = "";
+		for (int i=0; i<text.length();i++) {
+			char lettre = text.charAt(i);
+			for(int j=0; j<arb.size();j++) {
+				if(lettre == (char)arb.get(j).valeur) {
+					code = code + arb.get(j).codeBin +" ";
+				}
+			}
+		}
+		System.out.println("le codage de cette phrase:'"+text+"' "+"est les suivant:\n"+code);
+		return code;
+	}
+	
+	void Decodage(String code,String text_a_decoder) {
+		ArrayList<Arbre> tableauDesCodes = huffman(text_a_decoder);
+		
+		String buffer = "";
 		String text = "";
-		while(text.length() < taille) {
-			Random randomNbr = new Random();
-			int maxLenght = frq.lettres.length;
-			char caractere = frq.lettres[(randomNbr.nextInt(maxLenght))];
-			text += caractere;
+		for(int i=0; i<code.length();i++) {
+			buffer += String.valueOf(code.charAt(i));
+			for(Arbre arb : tableauDesCodes) {
+				if(arb.codeBin.equals(buffer)) {
+					text += (char)arb.valeur;
+					buffer = "";
+				}
+			}
 		}
-		return text;
-    }
-	
-	//fonction qui return le temps moyen d'exécution du codage d'un String donné
-	long temps(String text) {
-		long moy = 0;
-		for(int i=0;i<50;i++) {
-		long start = System.nanoTime();
-		codage.Codage(text, codage.huffman(text));
-		long end = System.nanoTime();
-        long temps = end - start;
-        moy += temps;
-        }
-		moy = moy/50;
-        return moy;
+		System.out.println("ce code s'interprète comme suit : "+text);
 	}
-	
-	//fonction qui génère 50fois un string de longueur 'taille' donnée en input et qui calcule à chaque 
-	//fois le temps d'exécution du codage de ces mots et retourn la moyenne
-	long tempsfinal(int taille) {
-		long t = 0;
-		for(int i=0;i<50;i++) {
-			double buff = temps(genere_text(taille));
-			
-			t += buff;
-		}
-		t = t/50;
-		System.out.println(t);
-		return t;
-	}
-	
-	//une fonction qui crée un fichier et le remplie avec des couples (longueur du text,temps d'exécution)
-	void genere_fichier() throws Exception {
-		
-		File fichier = new File("c:\\Users\\dell\\Desktop\\output.txt");
-		if (!fichier.isFile()) {
-		    fichier.createNewFile();
-		   }
-		
-		int taille = 5;
-		for(int i=0;i<500;i++) {
-			long temps = this.tempsfinal(taille);
-			FileWriter f = new FileWriter("c:\\Users\\dell\\Desktop\\output.txt", true);
-			PrintWriter writer = new PrintWriter(f);
-			writer.write(taille + " " + temps + "\n");
-			writer.close();
-			taille += 10;
-		}
-	}
-	
+
+
 }
