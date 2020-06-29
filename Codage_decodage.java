@@ -22,7 +22,7 @@ public class Codage_decodage {
 		ArbreN arbre = new ArbreN();
 		ArrayList<ArbreN> alist = arbre.arbreInit(lettres);
 		
-		ArbreN arb = arbre.arbre_huffman(alist);
+		ArbreN arb = arbre.arbre(alist);
 		arbre.parcourArbre(arb, "");
 		
 		int longueur = alist.get(0).codeBin.length();
@@ -37,7 +37,7 @@ public class Codage_decodage {
 				}
 			}
 		}
-		System.out.println(text);
+		System.out.println("Ce code signifie la phrase suivante: " + text);
 	}
 	
 	

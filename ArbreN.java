@@ -37,8 +37,8 @@ public class ArbreN {
 	
 	
 	@SuppressWarnings("unchecked")
-	//construction de l'arbre de huffman
-	ArbreN arbre_huffman (ArrayList<ArbreN> init) {
+	//construction de l'arbre 
+	ArbreN arbre (ArrayList<ArbreN> init) {
 		ArrayList<ArbreN> arbre_final = (ArrayList<ArbreN>)init.clone();
 		while(arbre_final.size() > 1) {
 			ArbreN arb1 = arbre_final.get(0);
@@ -62,11 +62,13 @@ public class ArbreN {
 	//parcourt l'arbre et attribue 0 pour le fils gauche et 1 pour le fils droit
 	void parcourArbre (ArbreN racine,String codeBin) {
 		if(est_feuille(racine)) {
+			//System.out.println("feuille: " + (char)racine.valeur + "  son code ascii est " + racine.valeur);
 			String codBin = normaliser(codeBin);
 			racine.codeBin = codBin;
 			System.out.println((char)racine.valeur + " " + codBin);
 		}
 		else {
+			//System.out.println("racine: " + racine.valeur + " fils gauche: " + racine.gauche.valeur + " fils droit: " + racine.droit.valeur);
 			parcourArbre(racine.gauche, codeBin + "0");
 			parcourArbre(racine.droit, codeBin + "1");
 		}
