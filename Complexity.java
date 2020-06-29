@@ -9,7 +9,7 @@ public class Complexity {
     CodageDecod codage = new CodageDecod();
 	
     
-    //fonction qui génère un string de caractères aléatoire et de longueur 'taille' donnée en input
+    //fonction qui gÃ©nÃ¨re un string de caractÃ¨res alÃ©atoire et de longueur 'taille' donnÃ©e en input
 	String genere_text(int taille) {
 		String text = "";
 		while(text.length() < taille) {
@@ -21,12 +21,12 @@ public class Complexity {
 		return text;
     }
 	
-	//fonction qui return le temps moyen d'exécution du codage d'un String donné
+	//fonction qui return le temps moyen d'exÃ©cution du codage d'un String donnÃ©
 	long temps(String text) {
 		long moy = 0;
 		for(int i=0;i<50;i++) {
 		long start = System.nanoTime();
-		codage.Codage(text, codage.huffman());
+		codage.Codage(text, codage.huffman(text));
 		long end = System.nanoTime();
         long temps = end - start;
         moy += temps;
@@ -35,8 +35,8 @@ public class Complexity {
         return moy;
 	}
 	
-	//fonction qui génère 50fois un string de longueur 'taille' donnée en input et qui calcule à chaque 
-	//fois le temps d'exécution du codage de ces mots et retourn la moyenne
+	//fonction qui gÃ©nÃ¨re 50fois un string de longueur 'taille' donnÃ©e en input et qui calcule Ã  chaque 
+	//fois le temps d'exÃ©cution du codage de ces mots et retourn la moyenne
 	long tempsfinal(int taille) {
 		long t = 0;
 		for(int i=0;i<50;i++) {
@@ -49,7 +49,7 @@ public class Complexity {
 		return t;
 	}
 	
-	//une fonction qui crée un fichier et le remplie avec des couples (longueur du text,temps d'exécution)
+	//une fonction qui crÃ©e un fichier et le remplie avec des couples (longueur du text,temps d'exÃ©cution)
 	void genere_fichier() throws Exception {
 		
 		File fichier = new File("c:\\Users\\dell\\Desktop\\output.txt");
