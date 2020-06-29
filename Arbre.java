@@ -18,8 +18,8 @@ public class Arbre {
 		this.droit = droit;
 	};
 	
-	//initialiser tous les lettres qu'on a à des feuilles
-	//cette methode return un tableau des arbres qui ont comme valeur les fréquences et comme poids les lettres
+	//initialiser tous les lettres qu'on a Ã  des feuilles
+	//cette methode return un tableau des arbres qui ont comme valeur les frÃ©quences et comme poids les lettres
 	//et qui n'ont ni fils gauche ni fils droit i.e ce sont des feuilles
 	ArrayList<Arbre> arbre_init (double [] frq_table) {
 		ArrayList<Arbre> init = new ArrayList<Arbre>();
@@ -35,7 +35,7 @@ public class Arbre {
 		return init;
 	}
 	
-	// une fonction qui trouve la fréquence minimale 
+	// une fonction qui trouve la frÃ©quence minimale 
 	Arbre trouveMin(ArrayList<Arbre> arb, Arbre arbreAeffacer) {
 		Arbre min = arb.get(0) != arbreAeffacer ? arb.get(0) : arb.get(1);
 		
@@ -62,7 +62,7 @@ public class Arbre {
 		return arbre_final.get(0);
 	}
 	
-	//vérifier si l'arbre est une feuille
+	//vÃ©rifier si l'arbre est une feuille
 	boolean est_feuille (Arbre arb) {
 		if(arb.gauche == null && arb.droit == null) {
 			return true;
@@ -73,14 +73,16 @@ public class Arbre {
 	//parcourt l'arbre et attribue 0 pour le fils gauche et 1 pour le fils droit
 	ArrayList<Arbre> parcourArbre (Arbre racine,String codeBin,ArrayList<Arbre> arb) {
 		if(est_feuille(racine)) {
+			//System.out.println("feuille: " + racine.poid + "  son code ascii est " + racine.valeur);
 			racine.codeBin = codeBin;
-			//cette ligne affiche chaque caractère et son code binaire correspondant
-			//System.out.println(racine.poid + " " + codeBin);
+			//cette ligne affiche chaque caractÃ¨re et son code binaire correspondant
+			System.out.println(racine.poid + " " + codeBin);
 			Arbre arbre = new Arbre(racine.poid,null,null);
 			arbre.codeBin = codeBin;
 			arb.add(arbre);
 		}
 		else {
+			//System.out.println("racine: " + racine.valeur + " fils gauche: " + racine.gauche.valeur + " fils droit: " + racine.droit.valeur);
 			parcourArbre(racine.gauche, codeBin + "0",arb);
 			parcourArbre(racine.droit, codeBin + "1",arb);
 		}
