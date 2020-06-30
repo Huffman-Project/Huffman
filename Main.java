@@ -23,7 +23,7 @@ public class Main {
 
 		
 		
-		int taille = 10;
+		int taille = 100;
 		int max_taille = 5000;
 		
 		
@@ -31,7 +31,7 @@ public class Main {
 		while(taille <= max_taille) {
 			
 			long somme = 0;
-			int max_iter = 50;
+			int max_iter = 100;
 			
 			for (int i=0 ; i<max_iter; i++) {
 			
@@ -43,7 +43,7 @@ public class Main {
 			
 			huffman.ecrirePoints(taille, somme/max_iter);
 			
-			taille += 50;
+			taille += 100;
 		}
 		
 		System.out.println("\n----------------       ok         ---------------------"); 

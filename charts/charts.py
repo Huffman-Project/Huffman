@@ -15,7 +15,6 @@ file1 = open(os.getcwd() + '\\eclipse-workspace\\HuffmanSemiAdaptatif\\src\\char
 Lines1 = file1.readlines() 
 
   
-count = 0
 # Strips the newline character 
 for line in Lines1: 
     ligne = line.strip()
@@ -32,10 +31,13 @@ file1.close
 
 plt.plot(x1, y1)
 
+#####################################################################
+
+
 
 plt.xlabel("taille de texte")
 plt.ylabel("temps d'execution")
-plt.title("La compléxité de la méthode semi-adaptatif")
+plt.title("La compléxité de huffman semi-adaptatif")
 
 plt.show()
 

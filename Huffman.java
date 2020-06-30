@@ -126,7 +126,7 @@ public class Huffman {
 		
 		long somme = 0;
 		int iter = 0;
-		int max_iter = 10;
+		int max_iter = 50;
 		
 		while(iter < max_iter) {
 			
